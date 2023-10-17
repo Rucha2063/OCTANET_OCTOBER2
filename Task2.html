@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>To-Do List for Website Projects</title>
+<style>
+    body {
+font-family: sans-serif;
+}
+
+h1 {
+text-align: center;
+}
+
+#newtask {
+display: flex;
+align-items: center;
+}
+
+input, select {
+margin: 5px;
+padding: 5px;
+align-items: center;
+
+}
+
+#addtask {
+background-color: #123eef;
+color: #fff;
+border: none;
+padding: 10px;
+cursor: pointer;
+align-items: center;
+
+}
+
+#tasklist {
+list-style-type: none;
+padding: 0;
+margin: 0;
+align-items: center;
+
+}
+
+.task {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 10px;
+border: 1px solid #ef1a1a;
+margin-bottom: 5px;
+}
+
+.task.completed {
+background-color: #13e44b;
+text-decoration: line-through;
+}
+
+.task .name {
+flex: 1;
+}
+
+.task .deadline {
+width: 100px;
+text-align: right;
+}
+
+.task.low-priority {
+  background-color: rgb(246, 145, 145);
+}
+
+.task.medium-priority {
+  background-color: rgb(239, 83, 83);
+}
+
+.task.high-priority {
+  background-color: red;
+}
+</style>
+</head>
+<body>
+<h1>To-Do List for Website Projects</h1>
+<br>
+<br>
+<div id="newtask">
+<input type="text" placeholder="Enter task name">
+<select id="priority">
+<option value="low">Low</option>
+<option value="medium">Medium</option>
+<option value="high">High</option>
+</select>
+<select id="deadline">
+<option value="today">Today</option>
+<option value="tomorrow">Tomorrow</option>
+<option value="next_week">Next week</option>
+<option value="later">Later</option>
+</select>
+<button id="addtask">Add task</button>
+</div>
+
+<ul id="tasklist"></ul>
+
+<center>
+  
+<script >
+    
+const taskList = document.getElementById('tasklist');
+
+const addTask = () => {
+const taskName = document.getElementById('newtask').querySelector('input').value;
+const taskPriority = document.getElementById('newtask').querySelector('#priority').value;
+const taskDeadline = document.getElementById('newtask').querySelector('#deadline').value;
+
+const task = document.createElement('li');
+task.classList.add('task');
+
+switch (taskPriority) {
+    case 'low':
+      task.classList.add('low-priority');
+      break;
+    case 'medium':
+      task.classList.add('medium-priority');
+      break;
+    case 'high':
+      task.classList.add('high-priority');
+      break;
+  }
+
+const taskNameElement = document.createElement('span');
+taskNameElement.classList.add('name');
+taskNameElement.textContent = taskName;
+
+const taskDeadlineElement = document.createElement('span');
+taskDeadlineElement.classList.add('deadline');
+taskDeadlineElement.textContent = taskDeadline;
+
+task.appendChild(taskNameElement);
+task.appendChild(taskDeadlineElement);
+
+taskList.appendChild(task);
+
+document.getElementById('newtask').querySelector('input').value = '';
+};
+
+document.getElementById('addtask').addEventListener('click', addTask);
+
+taskList.addEventListener('click', event => {
+if (event.target.classList.contains('task')) {
+event.target.classList.toggle('completed');
+}
+});
+
+
+
+</script>
+  
+</center>
+</body>
+</html>
+
